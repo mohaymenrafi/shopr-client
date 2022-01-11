@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import { Badge } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { mobile } from '../responsive';
 
 const Container = styled.div`
   min-height: 60px;
@@ -14,6 +15,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${mobile({ padding: '10px 0px' })}
 `;
 
 const Left = styled.div`
@@ -24,6 +26,7 @@ const Left = styled.div`
 const Language = styled.span`
   font-size: 14px;
   cursor: pointer;
+  ${mobile({ display: 'none' })}
 `;
 const SearchContainer = styled.div`
   border: 0.5px solid lightgray;
@@ -35,9 +38,11 @@ const Input = styled.input`
   border: none;
   outline: 0px;
   padding: 7px;
+  ${mobile({ width: '50px' })}
 `;
 const Logo = styled.h2`
   font-weight: 800;
+  ${mobile({ fontSize: '24px' })}
 `;
 const Center = styled.div`
   text-align: center;
@@ -49,12 +54,14 @@ const MenuItem = styled.div`
   text-transform: uppercase;
   font-weight: 600;
   margin-left: 25px;
+  ${mobile({ fontSize: '12px', marginLeft: '10px' })}
 `;
 const Right = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  ${mobile({ flex: 2, justifyContent: 'center' })}
 `;
 
 export default function Navbar() {
