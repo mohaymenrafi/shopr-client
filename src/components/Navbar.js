@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import { Badge } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { mobile } from '../responsive';
 
 const Container = styled.div`
@@ -42,6 +44,10 @@ const Input = styled.input`
 `;
 const Logo = styled.h2`
   font-weight: 800;
+  a {
+    color: #000;
+    text-decoration: none;
+  }
   ${mobile({ fontSize: '24px' })}
 `;
 const Center = styled.div`
@@ -54,6 +60,9 @@ const MenuItem = styled.div`
   text-transform: uppercase;
   font-weight: 600;
   margin-left: 25px;
+  a {
+    text-decoration: none;
+  }
   ${mobile({ fontSize: '12px', marginLeft: '10px' })}
 `;
 const Right = styled.div`
@@ -65,6 +74,8 @@ const Right = styled.div`
 `;
 
 export default function Navbar() {
+  const { quantity } = useSelector((state) => state.cart);
+  console.log(quantity);
   return (
     <Container>
       <Wrapper>
@@ -76,16 +87,24 @@ export default function Navbar() {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>SHOPR</Logo>
+          <Logo>
+            <Link to="/">SHOPR</Link>
+          </Logo>
         </Center>
         <Right>
-          <MenuItem>Register</MenuItem>
-          <MenuItem>Sign In</MenuItem>
           <MenuItem>
-            <Badge badgeContent={5} color="primary">
-              <ShoppingCartOutlinedIcon color="action" />
-            </Badge>
+            <Link to="/register">Register</Link>
           </MenuItem>
+          <MenuItem>
+            <Link to="/login">Sign In</Link>
+          </MenuItem>
+          <Link to="/cart">
+            <MenuItem>
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartOutlinedIcon color="action" />
+              </Badge>
+            </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>

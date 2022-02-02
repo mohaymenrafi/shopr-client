@@ -1,11 +1,16 @@
 import { Add, Remove } from '@mui/icons-material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
+import { publicRequest } from '../requestMethods';
 import { mobile } from '../responsive';
+import './ProductStyle.css';
+import { addProduct } from '../redux/cartRedux';
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -58,6 +63,7 @@ const FilterColor = styled.div`
   background-color: ${(props) => props.color};
   margin: 0px 5px;
   cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 `;
 const FilterSize = styled.select`
   margin-left: 10px;
@@ -100,47 +106,80 @@ const Button = styled.button`
 `;
 
 export default function Product() {
+  const { id } = useParams();
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState('');
+  const [color, setColor] = useState('');
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get(`/products/find/${id}`);
+        setProduct(res.data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+    getProduct();
+  }, [id]);
+
+  const handleQuantity = (type) => {
+    if (type === 'dec') {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addProduct({ ...product, quantity, color, size }));
+  };
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Image src="https://d3o2e4jr3mxnm3.cloudfront.net/Rocket-Vintage-Chill-Cap_66374_1_lg.png" />
+          <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Lorem, ipsum.</Title>
-          <Desc>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-            magni animi ad mollitia soluta, odit quo eaque sint culpa nulla eos
-            aut aspernatur ipsa ut voluptatibus nesciunt officiis nobis aliquam.
-          </Desc>
-          <Price>$ 20</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="tomato" />
-              <FilterColor color="gray" />
+              {product.color?.map((col) => (
+                <FilterColor
+                  color={col}
+                  key={col}
+                  onClick={() => setColor(col)}
+                />
+              ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+              <FilterSize onChange={(e) => setSize(e.target.value)}>
+                {product.size?.map((s) => (
+                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+              <Remove
+                onClick={() => handleQuantity('dec')}
+                style={{ cursor: 'pointer' }}
+              />
+              <Amount>{quantity}</Amount>
+              <Add
+                onClick={() => handleQuantity('inc')}
+                style={{ cursor: 'pointer' }}
+              />
             </AmountContainer>
-            <Button>Add To Cart</Button>
+            <Button onClick={handleAddToCart}>Add To Cart</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
