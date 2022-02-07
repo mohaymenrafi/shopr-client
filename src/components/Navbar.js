@@ -75,7 +75,6 @@ const Right = styled.div`
 
 export default function Navbar() {
   const { quantity } = useSelector((state) => state.cart);
-  console.log(quantity);
   return (
     <Container>
       <Wrapper>
