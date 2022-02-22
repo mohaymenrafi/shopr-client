@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { mobile } from '../responsive';
+import { register } from '../redux/apiCalls';
 
 const Container = styled.div`
   width: 100vw;
@@ -47,22 +50,74 @@ const Button = styled.button`
 `;
 
 export default function Register() {
+  const [userInfo, setUserInfo] = useState({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const collectInfo = (e) => {
+    const { name, value } = e.target;
+
+    setUserInfo({
+      ...userInfo,
+      [name]: value,
+    });
+  };
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log(userInfo);
+    if (userInfo.password === userInfo.confirmPassword) {
+      console.log('pass matched');
+      register(dispatch, userInfo, navigate);
+    } else {
+      console.warn('pass did not matched');
+    }
+  };
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="First Name" />
-          <Input placeholder="Last Name" />
-          <Input placeholder="username" />
-          <Input placeholder="Email" />
-          <Input placeholder="Password" />
-          <Input placeholder="Confirm Password" />
+        <Form onSubmit={handleRegister}>
+          <Input
+            onChange={collectInfo}
+            name="firstname"
+            placeholder="First Name"
+            type="text"
+          />
+          <Input
+            onChange={collectInfo}
+            name="lastname"
+            placeholder="Last Name"
+            type="text"
+          />
+          <Input
+            onChange={collectInfo}
+            name="username"
+            placeholder="username"
+            type="text"
+          />
+          <Input
+            onChange={collectInfo}
+            name="email"
+            placeholder="Email"
+            type="text"
+          />
+          <Input
+            onChange={collectInfo}
+            name="password"
+            placeholder="Password"
+            type="password"
+          />
+          <Input
+            onChange={collectInfo}
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            type="password"
+          />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>Create</Button>
+          <Button type="submit">Create</Button>
         </Form>
       </Wrapper>
     </Container>

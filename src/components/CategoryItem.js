@@ -39,16 +39,27 @@ const Button = styled.button`
   cursor: pointer;
   font-weight: 600;
 `;
+const Overlay = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.31);
+  z-index: 2;
+`;
 
 export default function CategoryItem({ item }) {
   return (
     <Container>
       <Link to={`/products/${item.category}`}>
         <Image src={item.img} />
-        <Info>
-          <Title>{item.title}</Title>
-          <Button>Shop Now</Button>
-        </Info>
+        <Overlay>
+          <Info>
+            <Title>{item.title}</Title>
+            <Button>Shop Now</Button>
+          </Info>
+        </Overlay>
       </Link>
     </Container>
   );

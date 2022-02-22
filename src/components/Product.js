@@ -43,7 +43,7 @@ const Circle = styled.div`
   position: absolute;
 `;
 const Image = styled.img`
-  /* width: 100%; */
+  /* width: 85%; */
   height: 75%;
   z-index: 2;
 `;

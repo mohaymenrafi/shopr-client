@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
+import Products from '../components/Products';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
-import Products from '../components/Products';
 import { mobile } from '../responsive';
 
 const Container = styled.div``;
@@ -36,9 +35,7 @@ const Option = styled.option`
   font-size: 16px;
 `;
 
-export default function ProductList() {
-  const location = useLocation();
-  const category = location.pathname.split('/')[2];
+export default function AllProducts() {
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState('newest');
   const handleFilter = (e) => {
@@ -51,11 +48,12 @@ export default function ProductList() {
   const handleSort = (e) => {
     setSort(e.target.value);
   };
+
   return (
     <Container>
       <Navbar />
       <Announcement />
-      <Title>{category}</Title>
+      <Title>All Products</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
@@ -90,7 +88,7 @@ export default function ProductList() {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products filters={filters} sort={sort} category={category} />
+      <Products filters={filters} sort={sort} category="" />
       <Newsletter />
       <Footer />
     </Container>

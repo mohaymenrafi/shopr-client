@@ -1,9 +1,9 @@
 import Announcement from '../components/Announcement';
 import Categories from '../components/Categories';
 import Footer from '../components/Footer';
+import HomeProducts from '../components/HomeProducts';
 import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
-import Products from '../components/Products';
 import Slider from '../components/Slider';
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
       <Navbar />
       <Slider />
       <Categories />
-      <Products />
+      <HomeProducts />
       <Newsletter />
       <Footer />
     </>

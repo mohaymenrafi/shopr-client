@@ -11,7 +11,6 @@ const Container = styled.div`
 `;
 
 export default function Products({ filters, sort, category }) {
-  console.log(category);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   useEffect(() => {
@@ -19,11 +18,10 @@ export default function Products({ filters, sort, category }) {
       try {
         const res = await axios.get(
           category
-            ? `https://shopr-server.vercel.app/api/products?category=${category}`
-            : `https://shopr-server.vercel.app/api/products`
+            ? `http://localhost:5000/api/products?category=${category}`
+            : `http://localhost:5000/api/products`
         );
         setProducts(res.data);
-        console.log(products);
       } catch (err) {
         console.log(err.message);
       }
@@ -33,15 +31,13 @@ export default function Products({ filters, sort, category }) {
 
   // for filters
   useEffect(() => {
-    category &&
-      setFilteredProducts(
-        products.filter((item) =>
-          Object.entries(filters).every(([key, value]) =>
-            item[key].includes(value)
-          )
+    setFilteredProducts(
+      products.filter((item) =>
+        Object.entries(filters).every(([key, value]) =>
+          item[key].includes(value)
         )
-      );
-    console.log(filteredProducts);
+      )
+    );
   }, [products, filters, category]);
 
   // for sorting
@@ -63,11 +59,9 @@ export default function Products({ filters, sort, category }) {
 
   return (
     <Container>
-      {category
+      {filteredProducts.length > 0
         ? filteredProducts.map((item) => <Product item={item} key={item._id} />)
-        : products
-            .slice(0, 8)
-            .map((item) => <Product item={item} key={item._id} />)}
+        : products.map((item) => <Product item={item} key={item._id} />)}
     </Container>
   );
 }

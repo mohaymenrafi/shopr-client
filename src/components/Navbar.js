@@ -3,8 +3,9 @@ import { MdSearch } from 'react-icons/md';
 import { Badge } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { mobile } from '../responsive';
+import { logout } from '../redux/userRedux';
 
 const Container = styled.div`
   min-height: 60px;
@@ -62,6 +63,7 @@ const MenuItem = styled.div`
   margin-left: 25px;
   a {
     text-decoration: none;
+    color: #000;
   }
   ${mobile({ fontSize: '12px', marginLeft: '10px' })}
 `;
@@ -73,8 +75,23 @@ const Right = styled.div`
   ${mobile({ flex: 2, justifyContent: 'center' })}
 `;
 
+const Button = styled.button`
+  border: none;
+  background-color: #fff;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+`;
+
 export default function Navbar() {
   const { quantity } = useSelector((state) => state.cart);
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -92,11 +109,25 @@ export default function Navbar() {
         </Center>
         <Right>
           <MenuItem>
-            <Link to="/register">Register</Link>
+            <Link to="/all-products">Products</Link>
           </MenuItem>
-          <MenuItem>
-            <Link to="/login">Sign In</Link>
-          </MenuItem>
+          {!currentUser && (
+            <>
+              <MenuItem>
+                <Link to="/register">Register</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/login">Sign In</Link>
+              </MenuItem>
+            </>
+          )}
+          {currentUser && (
+            <MenuItem>
+              <Button type="button" onClick={handleLogout}>
+                {`Logout (${currentUser.username})`}
+              </Button>
+            </MenuItem>
+          )}
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
