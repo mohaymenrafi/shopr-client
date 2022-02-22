@@ -8,6 +8,7 @@ import {
   Twitter,
 } from '@mui/icons-material';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 
@@ -59,6 +60,10 @@ const List = styled.ul`
 const ListItem = styled.li`
   width: 50%;
   margin-bottom: 10px;
+  a {
+    text-decoration: none;
+    color: #000;
+  }
 `;
 const Right = styled.div`
   flex: 1;
@@ -102,11 +107,26 @@ export default function Footer() {
       <Center>
         <Title>Useful Links</Title>
         <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
-          <ListItem>Man Fashion</ListItem>
-          <ListItem>Woman Fashion</ListItem>
-          <ListItem>Accessories</ListItem>
+          <ListItem>
+            <Link to="/">Home</Link>
+          </ListItem>
+
+          <ListItem>
+            <Link to="/cart">Cart</Link>
+          </ListItem>
+
+          <ListItem>
+            <Link to="/products/men">Man Fashion</Link>
+          </ListItem>
+
+          <ListItem>
+            <Link to="/products/women">Woman Fashion</Link>
+          </ListItem>
+
+          <ListItem>
+            <Link to="/products/kids">Kids Fashion</Link>
+          </ListItem>
+
           <ListItem>My Account</ListItem>
           <ListItem>Order Tracking</ListItem>
           <ListItem>Wishlist</ListItem>

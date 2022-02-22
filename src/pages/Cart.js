@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Add, Remove } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import StripeCheckout from 'react-stripe-checkout';
 import { useEffect, useState } from 'react';
@@ -9,6 +11,7 @@ import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { mobile } from '../responsive';
 import { userRequest } from '../requestMethods';
+import { clearCart } from '../redux/cartRedux';
 
 const KEY = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
 
@@ -61,6 +64,7 @@ const Info = styled.div`
 `;
 
 const Product = styled.div`
+  margin: 10px auto;
   display: flex;
   justify-content: space-between;
   ${mobile({ flexDirection: 'column' })}
@@ -163,6 +167,7 @@ export default function Cart() {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -172,8 +177,9 @@ export default function Cart() {
       try {
         const res = await userRequest.post('/checkout/payment', {
           tokenId: stripeToken.id,
-          amount: 5000,
+          amount: cart.total * 100,
         });
+        dispatch(clearCart());
         navigate('/success', {
           state: { stripeData: res.data, products: cart },
         });
@@ -189,14 +195,14 @@ export default function Cart() {
       <Announcement />
       <Wrapper>
         <Title>Your Bag</Title>
-        <Top>
+        {/* <Top>
           <TopButton>Continue Shoppping</TopButton>
           <TopTexts>
             <TopText>Shopping Bag (2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           <TopButton type="filled">Checkout Now</TopButton>
-        </Top>
+        </Top> */}
         <Bottom>
           <Info>
             {cart.products.map((product) => (
@@ -218,9 +224,9 @@ export default function Cart() {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
+                    {/* <Add /> */}
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove />
+                    {/* <Remove /> */}
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}
