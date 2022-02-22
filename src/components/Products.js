@@ -18,8 +18,8 @@ export default function Products({ filters, sort, category }) {
       try {
         const res = await axios.get(
           category
-            ? `http://localhost:5000/api/products?category=${category}`
-            : `http://localhost:5000/api/products`
+            ? `https://shopr-server.vercel.app/api/products?category=${category}`
+            : `https://shopr-server.vercel.app/api/products`
         );
         setProducts(res.data);
       } catch (err) {
