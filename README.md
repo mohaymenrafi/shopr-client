@@ -32,7 +32,12 @@ This project is created for learning purpose.
 - All product images are hosted on Firebase
 
 **_For admin there is separate app. You can check it out from [here](https://shopr-admin.netlify.app/)_**
+
+<br/>
+
 **_To view github repo for admin app [click here](https://github.com/mohaymenrafi/shopr-admin). This app is still on initial state._**
+
+<br/>
 
 **_For client side check out [this repo](https://github.com/mohaymenrafi/shopr-server)_**
 
