@@ -1,6 +1,5 @@
 # E-commerce website created using Reactjs
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 This project is created for learning purpose.
 
 `To view it live` [Click Here](https://shopr-client.netlify.app/)
