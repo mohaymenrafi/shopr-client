@@ -31,9 +31,9 @@ This project is created for learning purpose.
 - All the products are loaded from mongodb server
 - All product images are hosted on Firebase
 
-* For admin there is separate app. You can check it out from [here](https://shopr-admin.netlify.app/)
-* To view github repo for admin app [click here](https://github.com/mohaymenrafi/shopr-admin). This app is still on initial state.
+**_ For admin there is separate app. You can check it out from [here](https://shopr-admin.netlify.app/) _**
+**_ To view github repo for admin app [click here](https://github.com/mohaymenrafi/shopr-admin). This app is still on initial state. _**
 
-* For client side check out [this repo](https://github.com/mohaymenrafi/shopr-server)
+**_ For client side check out [this repo](https://github.com/mohaymenrafi/shopr-server) _**
 
 `The website is hosted is Netlify`
