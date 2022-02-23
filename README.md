@@ -17,7 +17,7 @@ This project is created for learning purpose.
 - Stripe Checkout
 - Json Web Token
 
-## Featues
+## Features
 
 - User can create account and log in to their accout
 - User passwords are encryted while saving to database
