@@ -30,6 +30,6 @@ This project is created for learning purpose.
 - All state management is done using `Redux Toolkit`
 - All the products are loaded from mongodb server
 
-###`For client side check out [this repo](https://github.com/mohaymenrafi/shopr-server)`
+###`For client side check out` [this repo](https://github.com/mohaymenrafi/shopr-server)
 
 `The website is hosted is Netlify`
