@@ -36,6 +36,6 @@ This project is created for learning purpose.
 
 <br/>
 
-**_For client side check out [this repo](https://github.com/mohaymenrafi/shopr-server)_**
+**_For server side check out [this repo](https://github.com/mohaymenrafi/shopr-server)_**
 
 `The website is hosted is Netlify`
